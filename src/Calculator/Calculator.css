@@ -1,0 +1,63 @@
+
+
+.container {
+    display: grid;
+    grid-template-rows: 2fr repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    background-color: #000000;
+    width: 600px;
+    height: 1050px
+}
+
+.result {
+    /* grid-area: result; */
+    text-align: end;
+    color: #ffffff;
+    grid-column: 1/5;
+    grid-row: 1/2;
+    font-size: 150px;
+    margin: 0;
+    padding-right: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.lightgrey {
+    /* grid-area: lightgrey; */
+    display: inline-grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column: 1/4;
+    grid-row: 2/3;
+    gap:10px;
+    padding: 10px 5px 5px 10px;
+}
+
+.orange {
+    /* grid-area: orange; */
+    display: inline-grid;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: 1fr;
+    grid-column: 4/5;
+    grid-row: 2/7;
+    gap: 10px;
+    padding: 10px 10px 10px 5px;
+}
+
+.darkgrey {
+    /* grid-area: darkgrey; */
+    display: inline-grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    background-color: #000000;
+    grid-column: 1/4;
+    grid-row: 3/7;
+    grid-template-areas: 
+    "seven eight nine"
+    "four five six"
+    "one two three"
+    "zero zero dot";
+    gap: 10px;
+     padding: 5px 5px 10px 10px;
+}
