@@ -1,8 +1,7 @@
-import React from 'react';
-import './NumberButton.css';
+import React from "react";
+import "./NumberButton.css";
 
-
-export default function NumberButton({ name, areaName }) {
+export default function NumberButton({ name, areaName, onClickNumber }) {
   const style = {
     default: {
       gridArea: areaName,
@@ -13,20 +12,21 @@ export default function NumberButton({ name, areaName }) {
       borderRadius: "50%",
     },
     zero: {
-      borderRadius:  "80px",
-      textAlign:  "left",
-      paddingLeft:  "52px",
+      borderRadius: "80px",
+      textAlign: "left",
+      paddingLeft: "52px",
     },
   };
 
-  
   let theStyle = style.default;
-  if(areaName === 'zero') theStyle = {...style.default, ...style.zero}
-
-  console.log("areaName", `areaName`);
+  if (areaName === "zero") theStyle = { ...style.default, ...style.zero };
 
   return (
-    <button style={theStyle} className="numButton">
+    <button
+      style={theStyle}
+      className="numButton"
+      onClick={() => onClickNumber(name)}
+    >
       {name}
     </button>
   );

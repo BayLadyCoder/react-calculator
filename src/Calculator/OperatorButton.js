@@ -1,7 +1,6 @@
 import React from "react";
 
-export default function OperatorButton({ name, color }) {
-
+export default function OperatorButton({ name, color, onClickOperation }) {
   const style = {
     orange: {
       backgroundColor: "#ff9d00",
@@ -19,7 +18,15 @@ export default function OperatorButton({ name, color }) {
   };
 
   let theStyle = style.lightgrey;
-  if(color === 'orange') theStyle = style.orange
+  if (color === "orange") theStyle = style.orange;
 
-  return <button style={theStyle} className="operatorButton">{name}</button>;
+  return (
+    <button
+      style={theStyle}
+      className="operatorButton"
+      onClick={() => onClickOperation(name)}
+    >
+      {name}
+    </button>
+  );
 }
