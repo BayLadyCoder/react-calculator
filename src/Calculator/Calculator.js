@@ -71,14 +71,14 @@ const orangeList = ["/", "x", "-", "+", "="];
 // create function onClickOperation("=")
 // => set currentValue = currentResult +-*/ currentValue, reset currentResult to 0
 
-const style = {};
-
 const Calculator = () => {
   const [value, setValue] = useState("");
   const [operation, setOperation] = useState("");
+  // const operation = [];
   const [result, setResult] = useState(0);
   const [display, setDisplay] = useState(value);
   const [percentage, setPercentage] = useState(0);
+  const [lastButtonPressed, setLastButtonPressed] = useState("number");
 
   const onClickNumber = (num) => {
     if (num === "." && value[value.length - 1] === ".") return;
@@ -86,9 +86,12 @@ const Calculator = () => {
     if (num === "." && value === "") {
       setValue("0".concat(num));
     } else {
-      setValue(value.concat(num));
+      // 2
+      console.log("concat", "-".concat("2"));
+      setValue(value.concat(num)); // "-" + "2" = "-2"
     }
     setDisplay(value.concat(num));
+    setLastButtonPressed("number");
   };
 
   const calculate = (valueOrPercent) => {
@@ -127,9 +130,30 @@ const Calculator = () => {
     if (result === 0) {
       setPercentage(percent);
     } else {
-      setPercentage(result * percent);
       calculate(result * percent);
-      // setResult(result + result * percent);
+      setPercentage(result * percent);
+    }
+  };
+
+  const togglePositiveNegative = () => {
+    if (lastButtonPressed === "number") {
+      console.log("value...", value);
+      if (value === "") {
+        setValue("-");
+        setDisplay("-0");
+      } else if (value === "-") {
+        setValue("");
+        setDisplay("0");
+      } else if (value[0] === "-") {
+        const toPositiveValue = value.substring(1, value.length);
+        setValue(toPositiveValue);
+        setDisplay(toPositiveValue);
+      } else {
+        setValue("-".concat(value));
+        setDisplay("-".concat(value));
+      }
+    } else {
+      setResult(result * -1);
     }
   };
 
@@ -139,35 +163,20 @@ const Calculator = () => {
       setResult(0);
       setDisplay(0);
     } else if (button === "+/-") {
-      console.log("+/-");
+      togglePositiveNegative();
     } else if (button === "%") {
       if (value !== "") calcPercentage();
       setOperation(button);
     } else {
-      // if button === + - x /
+      // if button === + - x / =
       if (value !== "") calculate(value);
       setOperation(button);
-
       if (button === "=") setDisplay(result);
     }
-    setValue("");
+    if (button !== "+/-") setValue("");
+    else return;
 
-    // if (button === "+") {
-    //   calculate();
-    //   setOperation("+");
-    // } else if (button === "-") {
-    //   calculate();
-    //   setOperation("-");
-    // } else if (button === "x") {
-    //   calculate();
-    //   setOperation("x");
-    // } else if (button === "/") {
-    //   calculate();
-    //   setOperation("/");
-    // } else if (button === "=") {
-    //   calculate();
-    //   setOperation("=");
-    // }
+    setLastButtonPressed(button === "C" ? "number" : "operator");
   };
 
   useEffect(() => {
@@ -189,7 +198,10 @@ const Calculator = () => {
   console.log("value", value);
   console.log("result", result);
   console.log("operation", operation);
+  console.log("display", display);
   console.log("------------");
+  console.log("value...", value);
+  console.log("parseFloat('-20')", parseFloat("-20"));
 
   return (
     <div className="container">
